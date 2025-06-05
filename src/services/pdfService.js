@@ -33,7 +33,9 @@ export const convertHtmlToPdf = async (args) => {
         try {
             const launchOptions = {
                 headless: true,
-                args: CONFIG.PDF.BROWSER_ARGS
+                args: CONFIG.PDF.BROWSER_ARGS,
+                timeout: 60000, // Increase browser launch timeout
+                protocolTimeout: 60000
             };
             browser = await puppeteer.launch(launchOptions);
         } catch (error) {
