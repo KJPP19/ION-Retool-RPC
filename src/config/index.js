@@ -19,16 +19,20 @@ export const CONFIG = {
 
     PDF: {
         BROWSER_ARGS: [
-            '--no-sandbox', 
-            '--disable-setuid-sandbox',
+            '--no-sandbox',
+            '--disable-setuid-sandbox', 
             '--disable-dev-shm-usage',
-            '--disable-web-security',
-            '--disable-features=VizDisplayCompositor',
-            '--max-old-space-size=4096',
+            '--disable-accelerated-2d-canvas',
+            '--no-first-run',
+            '--no-zygote',
+            '--single-process', // Important for limited memory
             '--disable-gpu',
             '--disable-background-timer-throttling',
             '--disable-backgrounding-occluded-windows',
-            '--disable-renderer-backgrounding'
-        ]
+            '--disable-renderer-backgrounding',
+            '--disable-features=VizDisplayCompositor',
+            '--max-old-space-size=2048' // Reduced for Render's memory limits
+        ],
+        EXECUTABLE_PATH: process.env.PUPPETEER_EXECUTABLE_PATH
     }
 }

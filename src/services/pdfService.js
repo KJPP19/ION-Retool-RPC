@@ -31,12 +31,17 @@ export const convertHtmlToPdf = async (args) => {
         const timeout = 120000;
         
         try {
-            browser = await puppeteer.launch({
+            const launchOptions = {
                 headless: true,
                 args: CONFIG.PDF.BROWSER_ARGS
-            });
+            };
+
+            if(process.env.NODE_ENV === 'production') {
+                launchOptions.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+            }
+            browser = await puppeteer.launch(launchOptions);
         } catch (error) {
-            logger.error("failed to launch puppeteer browser")
+            logger.error("failed to launch puppeteer browser", error)
             throw new BrowserLaunchError("failed to launch puppeteer browser")
         }
         
