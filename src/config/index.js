@@ -33,6 +33,5 @@ export const CONFIG = {
             '--disable-features=VizDisplayCompositor',
             '--max-old-space-size=1024' // Reduced for Render's memory limits
         ],
-        EXECUTABLE_PATH: process.env.PUPPETEER_EXECUTABLE_PATH
     }
 }
