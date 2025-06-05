@@ -28,13 +28,13 @@ export const convertHtmlToPdf = async (args) => {
 
     try {
         logger.info('starting pdf conversion')
-        const timeout = 300000;
+        const timeout = 500000;
         
         try {
             const launchOptions = {
                 headless: true,
                 args: CONFIG.PDF.BROWSER_ARGS,
-                timeout: 60000, // Increase browser launch timeout
+                timeout: timeout, // Increase browser launch timeout
                 protocolTimeout: timeout
             };
             browser = await puppeteer.launch(launchOptions);
@@ -46,8 +46,8 @@ export const convertHtmlToPdf = async (args) => {
         
         try {
             const page = await browser.newPage();
-            page.setDefaultTimeout(300000); // Set default timeout to 5 minutes
-            page.setDefaultNavigationTimeout(300000);
+            page.setDefaultTimeout(500000); // Set default timeout to 5 minutes
+            page.setDefaultNavigationTimeout(500000);
             const fullHtml = Buffer.from(args.html, 'base64').toString('utf8');
             logger.info("decoded base64 html success");
             await page.setContent(fullHtml, { 
