@@ -38,6 +38,7 @@ export const convertHtmlToPdf = async (args) => {
                 protocolTimeout: 60000
             };
             browser = await puppeteer.launch(launchOptions);
+            logger.info('browser launched');
         } catch (error) {
             logger.error("failed to launch puppeteer browser", error)
             throw new BrowserLaunchError("failed to launch puppeteer browser")
@@ -45,10 +46,12 @@ export const convertHtmlToPdf = async (args) => {
         
         try {
             const page = await browser.newPage();
+            page.setDefaultTimeout(300000); // Set default timeout to 5 minutes
+            page.setDefaultNavigationTimeout(300000);
             const fullHtml = Buffer.from(args.html, 'base64').toString('utf8');
             logger.info("decoded base64 html success");
             await page.setContent(fullHtml, { 
-                waitUntil: 'domcontentloaded',
+                waitUntil: 'networkidle0',
                 timeout: timeout
             });
             const pdfOptions = generatePdfOptions(timeout);
@@ -65,6 +68,7 @@ export const convertHtmlToPdf = async (args) => {
             await browser.close();
         }
     } catch (error) {
+        logger.info("check", error)
         throw error
     }
 }
