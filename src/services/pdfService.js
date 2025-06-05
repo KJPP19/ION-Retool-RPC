@@ -28,7 +28,7 @@ export const convertHtmlToPdf = async (args) => {
 
     try {
         logger.info('starting pdf conversion')
-        const timeout = 120000;
+        const timeout = 300000;
         
         try {
             const launchOptions = {
