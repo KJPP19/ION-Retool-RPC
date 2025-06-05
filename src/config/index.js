@@ -31,8 +31,7 @@ export const CONFIG = {
             '--disable-backgrounding-occluded-windows',
             '--disable-renderer-backgrounding',
             '--disable-features=VizDisplayCompositor',
-            '--max-old-space-size=2048' // Reduced for Render's memory limits
+            '--max-old-space-size=1024' // Reduced for Render's memory limits
         ],
-        EXECUTABLE_PATH: process.env.PUPPETEER_EXECUTABLE_PATH
     }
 }

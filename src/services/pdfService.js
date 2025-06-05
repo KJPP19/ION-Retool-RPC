@@ -35,10 +35,6 @@ export const convertHtmlToPdf = async (args) => {
                 headless: true,
                 args: CONFIG.PDF.BROWSER_ARGS
             };
-
-            if(process.env.NODE_ENV === 'production') {
-                launchOptions.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
-            }
             browser = await puppeteer.launch(launchOptions);
         } catch (error) {
             logger.error("failed to launch puppeteer browser", error)
