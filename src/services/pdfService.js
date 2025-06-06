@@ -56,7 +56,7 @@ export const convertHtmlToPdf = async (args) => {
                 waitUntil: 'domcontentloaded',
                 timeout: timeout
             });
-            await page.waitForTimeout(2000); // Give extra time for large content
+
             const pdfOptions = generatePdfOptions(timeout);
             const pdfBuffer = await page.pdf(pdfOptions);
             const base64String = Buffer.from(pdfBuffer).toString('base64');
