@@ -51,10 +51,12 @@ export const convertHtmlToPdf = async (args) => {
             page.setDefaultNavigationTimeout(500000);
             const fullHtml = Buffer.from(args.html, 'base64').toString('utf8');
             logger.info("decoded base64 html success");
+            logger.info(`HTML size: ${fullHtml.length} characters`);
             await page.setContent(fullHtml, { 
-                waitUntil: 'networkidle0',
+                waitUntil: 'domcontentloaded',
                 timeout: timeout
             });
+            await page.waitForTimeout(2000); // Give extra time for large content
             const pdfOptions = generatePdfOptions(timeout);
             const pdfBuffer = await page.pdf(pdfOptions);
             const base64String = Buffer.from(pdfBuffer).toString('base64');

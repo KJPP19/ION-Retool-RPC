@@ -25,8 +25,25 @@ export const CONFIG = {
             '--disable-accelerated-2d-canvas',
             '--no-first-run',
             '--no-zygote',
-            '--single-process', // <- this one is important for Docker
-            '--disable-gpu'
+            '--disable-gpu',
+            '--disable-background-timer-throttling',
+            '--disable-backgrounding-occluded-windows',
+            '--disable-renderer-backgrounding',
+            '--disable-extensions',
+            '--disable-plugins',
+            '--disable-default-apps',
+            '--disable-background-networking',
+            '--disable-sync',
+            '--disable-translate',
+            '--hide-scrollbars',
+            '--mute-audio',
+            '--no-default-browser-check',
+            '--no-pings',
+            '--single-process', // Keep this for Docker
+            '--disable-ipc-flooding-protection',
+            // Memory optimization
+            '--memory-pressure-off',
+            '--max-old-space-size=4096'
         ],
     }
 }
