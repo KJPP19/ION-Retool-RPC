@@ -33,7 +33,7 @@ export const convertHtmlToPdf = async (args) => {
         try {
             const launchOptions = {
                 headless: true,
-                //executablePath: '/usr/bin/google-chrome',
+                executablePath: '/usr/bin/google-chrome',
                 args: CONFIG.PDF.BROWSER_ARGS,
                 timeout: timeout, // Increase browser launch timeout
                 protocolTimeout: timeout
