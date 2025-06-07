@@ -19,7 +19,7 @@ export const generatePdfOptions = (timeout) => {
         preferCSSPageSize: true,
         timeout: timeout
     };
-
+    
     return pdfOptions;
 };
 
@@ -44,8 +44,11 @@ export const convertHtmlToPdf = async (args) => {
         }
         
         try {
-            const page = await browser.newPage();
-            page.setDefaultTimeout(500000); // Set default timeout to 5 minutes
+            const context = await browser.newContext();
+            const page = await context.newPage();
+            
+            // Set timeouts
+            page.setDefaultTimeout(500000);
             page.setDefaultNavigationTimeout(500000);
             
             const fullHtml = Buffer.from(args.html, 'base64').toString('utf8');
@@ -53,7 +56,7 @@ export const convertHtmlToPdf = async (args) => {
             const bodyContent = bodyMatch[1];
             const pageCount = (bodyContent.match(/class="(?:page(?:\s|")|[^"]*\s+page(?:\s|"))/g) || []).length;
             
-            logger.info(`decoded base64 html success${pageCount} ${(bodyContent.match(/class="(?:page(?:\s|")|[^"]*\s+page(?:\s|"))/g) || []).slice(0, 10)}`);
+            logger.info(`decoded base64 html success ${pageCount} ${(bodyContent.match(/class="(?:page(?:\s|")|[^"]*\s+page(?:\s|"))/g) || []).slice(0, 10)}`);
             logger.info(`HTML size: ${fullHtml.length} characters`);
             
             await page.setContent(fullHtml, { 
