@@ -17,6 +17,7 @@
     "express": "^5.1.0",
     "jsdom": "^26.1.0",
     "pdf-lib": "^1.17.1",
+    "playwright": "^1.52.0",
     "puppeteer": "^24.9.0",
     "retoolrpc": "^0.1.7",
     "winston": "^3.17.0"
