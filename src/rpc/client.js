@@ -11,6 +11,7 @@ export const createRPCClient = () => {
         resourceId: CONFIG.RETOOLRPC.RESOURCE_ID,
         environmentName: CONFIG.RETOOLRPC.ENVIRONMENT,
         pollingIntervalMs: CONFIG.RETOOLRPC.POLLING_INTERVAL,
+        pollingTimeoutMs: 200000,
         version: CONFIG.RETOOLRPC.VERSION,
         logLevel: CONFIG.RETOOLRPC.LOG_LEVEL,
     })
