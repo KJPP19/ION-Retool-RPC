@@ -1,13 +1,21 @@
 FROM node:22-slim
 
-# Install system dependencies
+# Install Chrome dependencies and font tools
 RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
     ca-certificates \
     procps \
+    libxss1 \
     fontconfig \
     debconf-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Chrome
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list \
+    && apt-get update \
+    && apt-get install -y google-chrome-stable \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Microsoft Core Fonts (includes Trebuchet MS)
@@ -21,10 +29,6 @@ RUN echo "deb http://deb.debian.org/debian bullseye contrib non-free" >> /etc/ap
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci --only=production
-
-# Install Playwright browsers
-RUN npx playwright install --with-deps chromium
-
 COPY . .
 
 USER node
